@@ -46,6 +46,7 @@ class DomNodeCollection {
   }
 
   addClass(...classes: string[]): void {
+    console.log(classes);
     this.elements.forEach((el) => {
       el.className += ' ' + classes.join(' ');
     });

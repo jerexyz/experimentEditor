@@ -14,6 +14,26 @@ module.exports = (env, argv) => {
     module: {
       rules: [
         {
+          test: /\.s[ac]ss$/i,
+          include: [path.resolve(__dirname, 'src')],
+          use: [
+            // Creates `style` nodes from JS strings
+            {
+              loader: 'style-loader',
+              options: { injectType: 'singletonStyleTag' },
+            },
+            // Translates CSS into CommonJS
+            'css-loader',
+            // Compiles Sass to CSS
+            {
+              loader: 'sass-loader',
+              options: {
+                implementation: require('sass'),
+              },
+            },
+          ],
+        },
+        {
           test: /\.(js|ts)$/,
           include: [path.resolve(__dirname, 'src')],
           loader: 'babel-loader',
@@ -21,7 +41,7 @@ module.exports = (env, argv) => {
       ],
     },
     resolve: {
-      extensions: ['.ts', '.js', '.mjs'],
+      extensions: ['.ts', '.js', '.mjs', '.scss'],
     },
     optimization: {
       minimizer: [new TerserPlugin()],
@@ -56,7 +76,7 @@ module.exports = (env, argv) => {
 
   if (env.production) {
     config.mode = 'production';
-    config.entry = './src/editor.ts';
+    config.entry = './src/Editor.ts';
     config.output.libraryTarget = 'umd';
     config.output.filename = 'editor.js';
   } else {
