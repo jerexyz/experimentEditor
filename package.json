@@ -1,10 +1,12 @@
 {
   "name": "experiment_editor",
   "version": "0.0.1",
+  "main": "dist/editor.js",
+  "sideEffects": false,
   "scripts": {
     "test": "jest",
     "lint": "eslint . --ext .js,.ts",
-    "build": "webpack",
+    "build": "webpack --env production",
     "start": "webpack-cli serve"
   },
   "devDependencies": {
@@ -45,7 +47,5 @@
   "lint-staged": {
     "*.{js,jsx}": "eslint --cache --fix"
   },
-  "dependencies": {
-    "redom": "^3.27.1"
-  }
+  "dependencies": {}
 }

@@ -1315,13 +1315,6 @@
   resolved "https://registry.yarnpkg.com/@types/prettier/-/prettier-2.1.5.tgz#b6ab3bba29e16b821d84e09ecfaded462b816b00"
   integrity sha512-UEyp8LwZ4Dg30kVU2Q3amHHyTn1jEdhCIE59ANed76GaT1Vp76DD3ZWSAxgCrw6wJ0TqeoBpqmfUHiUDPs//HQ==
 
-"@types/redom@^3.23.1":
-  version "3.23.1"
-  resolved "https://registry.yarnpkg.com/@types/redom/-/redom-3.23.1.tgz#31d262c777d6cdc66ae6c95ee5cb7be112d5c0d4"
-  integrity sha512-07KOp9TDxTt/mEKKUwGidb8PfMSFoqmiYY8y4O0h46Gu2KYXOt4B7Gb0tsOOF6hgDUToMyzPWdZpF9t44FZJqw==
-  dependencies:
-    redom "*"
-
 "@types/source-list-map@*":
   version "0.1.2"
   resolved "https://registry.yarnpkg.com/@types/source-list-map/-/source-list-map-0.1.2.tgz#0078836063ffaf17412349bba364087e0ac02ec9"
@@ -6284,11 +6277,6 @@ redent@^3.0.0:
   dependencies:
     indent-string "^4.0.0"
     strip-indent "^3.0.0"
-
-redom@*, redom@^3.27.1:
-  version "3.27.1"
-  resolved "https://registry.yarnpkg.com/redom/-/redom-3.27.1.tgz#4243cfd4f4e851463fd9736de44af27323830f06"
-  integrity sha512-hq3/nnY3GyanNvEx5xLopg+HMIZHEQrFuNiUwTQqsOv53tVPYX6Rei8o5hCALGZtUlMWYRiJ/gd4pZCvgGyGig==
 
 reduce-flatten@^2.0.0:
   version "2.0.0"
