@@ -9,7 +9,7 @@ module.exports = (env, argv) => {
   console.log(env, argv);
   const config = {
     mode: 'development',
-    entry: './src/index.ts',
+    entry: './public/index.ts',
 
     module: {
       rules: [
@@ -83,7 +83,7 @@ module.exports = (env, argv) => {
     config.plugins.push(
       new HtmlWebpackPlugin({
         title: 'editor test',
-        template: 'src/index.html',
+        template: 'public/index.html',
       }),
     );
   }
