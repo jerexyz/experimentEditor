@@ -28,7 +28,7 @@ export default class Editor {
 
   initMenuContainer(): void {
     const menuEl = document.createElement('div');
-    const menuID = `editor_menus_${Math.random()}`;
+    const menuID = `editor_menus_${Math.random().toString(36).substring(2)}`;
     menuEl.className = 'editor-menus';
     menuEl.setAttribute('id', menuID);
     menus.forEach((menuItem) => {
@@ -40,12 +40,28 @@ export default class Editor {
     this._editorRoot.append(menuNode);
     requestAnimationFrame(() => {
       document.getElementById(menuID).addEventListener(
-        'click',
+        'mousedown',
         (e) => {
           e.preventDefault();
           const nodeName = e.target.nodeName;
-          const result = document.execCommand('formatBlock', false, '<h1>');
-          console.log(result);
+          const dataSet = e.target.dataset;
+          switch (dataSet.cmd) {
+            case 'formatBlock':
+              if (nodeName === 'p') {
+                document.execCommand('removeFormat');
+                break;
+              }
+              document.execCommand(dataSet.cmd, false, nodeName);
+              break;
+            case 'bold':
+              document.execCommand(dataSet.cmd);
+              break;
+            case 'foreColor':
+              document.execCommand(dataSet.cmd, false, dataSet.color);
+              break;
+            default:
+              break;
+          }
         },
         false,
       );
@@ -55,7 +71,6 @@ export default class Editor {
   initEditorContainer(opts: Options): void {
     const editorContainer = document.createElement('div');
     this._editorContainer = editorContainer;
-    editorContainer.setAttribute('id', 'test');
     editorContainer.setAttribute('contenteditable', true);
     editorContainer.className = 'editor-container';
     setStyle(editorContainer, opts.style);
