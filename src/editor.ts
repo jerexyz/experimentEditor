@@ -45,6 +45,7 @@ export default class Editor {
           e.preventDefault();
           const nodeName = e.target.nodeName;
           const dataSet = e.target.dataset;
+          this.restoreRange();
           switch (dataSet.cmd) {
             case 'formatBlock':
               if (nodeName === 'p') {
@@ -71,10 +72,45 @@ export default class Editor {
   initEditorContainer(opts: Options): void {
     const editorContainer = document.createElement('div');
     this._editorContainer = editorContainer;
+    const editorID = `editor_${Math.random().toString(36).substring(2)}`;
+    editorContainer.setAttribute('id', editorID);
     editorContainer.setAttribute('contenteditable', true);
     editorContainer.className = 'editor-container';
     setStyle(editorContainer, opts.style);
 
     this._editorRoot.append(editorContainer);
+    requestAnimationFrame(() => {
+      document.getElementById(editorID)?.addEventListener('blur', () => {
+        this.backupRange();
+      });
+    });
+  }
+
+  backupRange(): void {
+    const selection = window.getSelection();
+    const range = selection.getRangeAt(0);
+    this.currentSelection = {
+      startContainer: range.startContainer,
+      startOffset: range.startOffset,
+      endContainer: range.endContainer,
+      endOffset: range.endOffset,
+    };
+  }
+  restoreRange(): void {
+    if (this.currentSelection) {
+      const selection = window.getSelection();
+      selection.removeAllRanges();
+      const range = document.createRange();
+      range.setStart(
+        this.currentSelection.startContainer,
+        this.currentSelection.startOffset,
+      );
+      range.setEnd(
+        this.currentSelection.endContainer,
+        this.currentSelection.endOffset,
+      );
+      // 向选区中添加一个区域
+      selection.addRange(range);
+    }
   }
 }
